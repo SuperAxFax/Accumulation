@@ -42,6 +42,7 @@ def plot_embeddings(embeddings,):
 
 
 if __name__ == "__main__":
+    #使用networkx將
     G = nx.read_edgelist('../data/wiki/Wiki_edgelist.txt',
                          create_using=nx.DiGraph(), nodetype=None, data=[('weight', int)])
 
