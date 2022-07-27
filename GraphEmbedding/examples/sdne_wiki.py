@@ -46,9 +46,9 @@ if __name__ == "__main__":
     G = nx.read_edgelist('../data/wiki/Wiki_edgelist.txt',
                          create_using=nx.DiGraph(), nodetype=None, data=[('weight', int)])
 
-    model = SDNE(G, hidden_size=[256, 128],)
+    model = SDNE(G, hidden_size=[256, 64],)
     model.train(batch_size=3000, epochs=40, verbose=2)
     embeddings = model.get_embeddings()
-
+    print(embeddings)
     evaluate_embeddings(embeddings)
     plot_embeddings(embeddings)

@@ -79,7 +79,9 @@ def plot_embeddings(embeddings,):
 if __name__ == "__main__":
     G = nx.read_edgelist('../data/flight/brazil-airports.edgelist', create_using=nx.DiGraph(), nodetype=None,
                          data=[('weight', int)])
-
+    # nx.draw(G,node_size=10,font_size=10,font_color="red",font_weight="bold")#获取原始图
+    # plt.show()
+    # print(G)
     model = Struc2Vec(G, 10, 80, workers=4, verbose=40, )
     model.train()
     embeddings = model.get_embeddings()
