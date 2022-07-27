@@ -11,10 +11,12 @@ from sklearn.manifold import TSNE
 
 
 def evaluate_embeddings(embeddings):
+    #导入每个点的lable
     X, Y = read_node_label('../data/wiki/wiki_labels.txt')
     tr_frac = 0.8
     print("Training classifier using {:.2f}% nodes...".format(
         tr_frac * 100))
+    #使用embedding构建一个分类器来预测最终输出效果
     clf = Classifier(embeddings=embeddings, clf=LogisticRegression())
     clf.split_train_evaluate(X, Y, tr_frac)
 
@@ -27,6 +29,7 @@ def plot_embeddings(embeddings,):
         emb_list.append(embeddings[k])
     emb_list = np.array(emb_list)
 
+    #使用TSNE将128维的embedding降低到2维
     model = TSNE(n_components=2)
     node_pos = model.fit_transform(emb_list)
 
@@ -42,13 +45,15 @@ def plot_embeddings(embeddings,):
 
 
 if __name__ == "__main__":
-    #使用networkx將
+    #使用networkx将图导入，无向图，结点无类型，权重
     G = nx.read_edgelist('../data/wiki/Wiki_edgelist.txt',
                          create_using=nx.DiGraph(), nodetype=None, data=[('weight', int)])
-
+    #随机游走长度：10，次数：80，进程数：1
     model = DeepWalk(G, walk_length=10, num_walks=80, workers=1)
     model.train(window_size=5, iter=3,embed_size=128)
     embeddings = model.get_embeddings()
     print(embeddings)
+    #评估函数
     evaluate_embeddings(embeddings)
+    #画图函数
     plot_embeddings(embeddings)
