@@ -67,6 +67,7 @@ def create_model(numNodes, embedding_size, order='second'):
 
 
 class LINE:
+    #negative_ratio：负采样比率   order：使用一阶或二阶或一二阶相似度
     def __init__(self, graph, embedding_size=8, negative_ratio=5, order='second',):
         """
 

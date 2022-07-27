@@ -45,9 +45,9 @@ if __name__ == "__main__":
     G=nx.read_edgelist('../data/wiki/Wiki_edgelist.txt',
                          create_using = nx.DiGraph(), nodetype = None, data = [('weight', int)])
     model = Node2Vec(G, walk_length=10, num_walks=80,
-                     p=0.25, q=4, workers=1, use_rejection_sampling=0)
-    model.train(window_size = 5, iter = 3)
+                     p=0.25, q=4, workers=1, use_rejection_sampling=0)#p越小，保守周围，类似于BFS。q越小，探索能力越强，类似于DFS。
+    model.train(embed_size=64,window_size = 5, iter = 3)
     embeddings=model.get_embeddings()
-
+    print(embeddings)
     evaluate_embeddings(embeddings)
     plot_embeddings(embeddings)

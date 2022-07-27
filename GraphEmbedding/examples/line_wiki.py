@@ -45,8 +45,8 @@ if __name__ == "__main__":
     G = nx.read_edgelist('../data/wiki/Wiki_edgelist.txt',
                          create_using=nx.DiGraph(), nodetype=None, data=[('weight', int)])
 
-    model = LINE(G, embedding_size=128, order='second')
-    model.train(batch_size=1024, epochs=50, verbose=2)
+    model = LINE(G, embedding_size=128, order='all')
+    model.train(batch_size=1024, epochs=10, verbose=2)
     embeddings = model.get_embeddings()
     print(embeddings)
     evaluate_embeddings(embeddings)
